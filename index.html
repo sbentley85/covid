@@ -4,39 +4,87 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href='./style.css' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link rel="icon" type="image/x-icon" href="favicon.ico" />
-        <title>Covid data by country</title>
+        <title>Covid-19 data by country</title>
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
         
     </head>
     <body>
         <header></header>
         <div class='container'>
-            <div class='search'>                
-                <input id='input' type='text' placeholder='Enter a country name'>
-                <button id='search'>Search</button>
-            </div>
-            <div class='info'></div>
-            <div class="radio">
-                <form name="formA">
-                    <input type="radio" id="linear" name="chart-type" value="linear" checked>
-                    <label for="linear">Linear</label>
-                    <input type="radio" id="logarithmic" name="chart-type" value="logarithmic">
-                    <label for="logarithmic">Logarithmic</label>
-                </form>
-            </div>
-            <div class="graph" id="graph">
+            <!-- Search -->
+            <section class="section" id='search'>
+                <div class="row center">
+                    <div class="col s12 m6 offset-m3">
+                        <input id='input' type='text' placeholder='Enter a country name'>
+                        <button id='search' class="btn">Search</button>        
+                    </div>
+                </div>              
+                
+            </section>
+            <!-- Info -->
+            <section class="section center" id='info'>
+                <p>Covid 19 data sourced from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins CSSE</a>
+                    via <a href="https://covid19api.com/">Covid 19 API</a></p>
+            </section>
+            <!-- Card -->
+            <section class="section" id='card'>
+                <div class="row card-container">
+                    <div class="col s6 m4 offset-m1">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title" id="card-title"></span>
+                            
+                                <p>Total Cases: <span id="total-cases"></span></p>
+                                <p>Active Cases: <span id="active-cases"></span></p>
+                                <p>Deaths: <span id="deaths"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s6 m4 offset-m1">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title"><h6>Current Totals Worldwide</h6></span>
+                                <p>Total Cases: <span id="total-cases-global"></span></p>
+                                <p>Active Cases: <span id="active-cases-global"></span></p>
+                                <p>Deaths: <span id="deaths-global"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </section>
+            
+            <!-- Graph -->
+            <section class="section" id='graph'>
                 
                 <canvas id="myChart" width="100%" height="400"></canvas>
-            </div>
-            <div class='results'>
-            </div>
+            </section>
+            <!-- Radio -->
+            <section class="section center" id='radio'>
+                
+                <form action="#" name="formA">
+                    
+                        <label>
+                            <input name="chart-type" type="radio" checked value="linear" id="linear"/>
+                            <span>Linear</span>
+                        </label>
+                        <label>
+                            <input name="chart-type" type="radio" value="logarithmic" id="linear"/>
+                            <span>Logarithmic</span>
+                        </label>                                 
+                  </form>
+            </section>
+            <!-- Table -->
+            <section class="section" id='results'>
+            </section>
             
         </div>
         <footer></footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script src='./main.js'></script>
     </body>
 </html>

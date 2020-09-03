@@ -40,11 +40,10 @@ function titleCase(str) {
 
 // randers response data to table
 const renderTable = (res) => {
-    let info = `<p>Covid 19 cases by date for ${titleCase(input.value)} sourced from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins CSSE</a>
-     via <a href="https://covid19api.com/">Covid 19 API</a></p>`
-    let caseList = [`<table><thead><tr><th>Date</th><th>Confirmed</th><th>New Cases</th><th>Deaths</th><th>New Deaths</th><th>Recovered</th><th>Active</th></tr></thead><tbody>`]
-    const resultsDiv = document.querySelector('.results');
-    const infoDiv = document.querySelector('.info');
+    
+    let caseList = [`<table class="highlight centered responsive-table"><thead><tr><th>Date</th><th>Confirmed</th><th>New Cases</th><th>Deaths</th><th>New Deaths</th><th>Recovered</th><th>Active</th></tr></thead><tbody>`]
+    const resultsDiv = document.querySelector('#results');
+    
     
       const newDate = res[0].Date.split('T')[0]
       caseList.push(`<tr><td>${newDate}</td>
@@ -80,11 +79,11 @@ const renderTable = (res) => {
         
     };
 
-    caseList.push('</tbody></table>')
-    caseList = caseList.join('')
-    infoDiv.innerHTML = info
-    resultsDiv.innerHTML = caseList
-    ;
+    caseList.push('</tbody></table>');
+    caseList = caseList.join('');
+    
+    resultsDiv.innerHTML = caseList;
+    
 
 
 }
@@ -204,8 +203,21 @@ const renderGraph = (res) => {
   });
 
   // shows radio buttons
-  document.querySelector(".radio").style.display = "block";
+  document.querySelector("#radio").style.display = "block";
   
+}
+// Adds summary data to card
+const renderCard = (res) => {
+  const totalCasesSpan = document.querySelector('#total-cases');
+  const activeCasesSpan = document.querySelector('#active-cases');
+  const deathsSpan = document.querySelector('#deaths');
+  const cardTitle = document.querySelector('#card-title');
+
+  totalCasesSpan.innerHTML = addCommas(res[res.length-1].Confirmed);
+  activeCasesSpan.innerHTML = addCommas(res[res.length-1].Active);
+  deathsSpan.innerHTML = addCommas(res[res.length-1].Deaths);
+  cardTitle.innerHTML = `<h6> Current Totals for ${titleCase(input.value)}<h6>`;
+  document.querySelector('#card').style.display = 'block'
 }
 
 
@@ -224,6 +236,7 @@ const getCountry = async () => {
         
         await renderGraph(jsonResponse);
         await renderTable(jsonResponse);
+        await renderCard(jsonResponse);
         localStorage.setItem('data', JSON.stringify(jsonResponse))
         
         
