@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='./style.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+        <title>Covid data by country</title>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+        
+    </head>
+    <body>
+        <header></header>
+        <div class='container'>
+            <div class='search'>                
+                <input id='input' type='text' placeholder='Enter a country name'>
+                <button id='search'>Search</button>
+            </div>
+            <div class='info'></div>
+            <div class="radio">
+                <form name="formA">
+                    <input type="radio" id="linear" name="chart-type" value="linear" checked>
+                    <label for="linear">Linear</label>
+                    <input type="radio" id="logarithmic" name="chart-type" value="logarithmic">
+                    <label for="logarithmic">Logarithmic</label>
+                </form>
+            </div>
+            <div class="graph" id="graph">
+                
+                <canvas id="myChart" width="100%" height="400"></canvas>
+            </div>
+            <div class='results'>
+            </div>
+            
+        </div>
+        <footer></footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        
+        <script src='./main.js'></script>
+    </body>
+</html>
