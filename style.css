@@ -6,6 +6,10 @@ body {
     
 }
 
+#search {
+    margin-top: 5em;
+}
+
 label {
     margin: 2em 2em;
 }

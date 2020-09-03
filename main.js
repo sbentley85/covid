@@ -3,7 +3,7 @@ const url1 ='https://api.covid19api.com/total/dayone/country/';
 const url2 =''
 
 const input = document.querySelector('#input');
-const submit = document.querySelector('#search');
+
 
 
 
@@ -237,9 +237,8 @@ const getCountry = async () => {
         await renderGraph(jsonResponse);
         await renderTable(jsonResponse);
         await renderCard(jsonResponse);
+        await getWorldwide();
         localStorage.setItem('data', JSON.stringify(jsonResponse))
-        
-        
       }
     } catch (error) {
       console.log(error)
@@ -247,7 +246,51 @@ const getCountry = async () => {
   };
 
 
-submit.addEventListener('click', getCountry)
+// Gets global data
+const getWorldwide = async () => {
+  const urlToFetch = `https://api.covid19api.com/summary`;
+    
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      }; 
+    try {
+      const response = await fetch(urlToFetch, requestOptions)
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        sessionStorage.setItem('globalData', JSON.stringify(jsonResponse));
+        
+        renderGlobalCard();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+};
+
+const renderGlobalCard = () => {
+  const totalCasesGlobalSpan = document.querySelector('#total-cases-global');
+  const activeCasesGlobalSpan = document.querySelector('#active-cases-global');
+  const deathsGlobalSpan = document.querySelector('#deaths-global');
+  const globalData = JSON.parse(sessionStorage.getItem('globalData'));
+  totalCasesGlobalSpan.innerHTML = addCommas(globalData.Global.TotalConfirmed);
+  activeCasesGlobalSpan.innerHTML = addCommas(globalData.Global.TotalConfirmed - globalData.Global.TotalRecovered);
+  deathsGlobalSpan.innerHTML = addCommas(globalData.Global.TotalDeaths);
+}
+
+const search = async () => {
+  if (!sessionStorage.globalData) {
+    await getWorldwide();
+  }
+
+  await getCountry();
+}
+
+// Add search listener
+const submit = document.querySelector('#search-button');
+submit.addEventListener('click', search);
+
+// Listen for chages to linear/logarithmic radio buttons & re-render graph
 const radios = document.forms['formA'].elements['chart-type'];
 
 for (let i = 0; i < radios.length; i++) {
