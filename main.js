@@ -1,6 +1,6 @@
 
 const url1 ='https://api.covid19api.com/total/dayone/country/';
-const url2 =''
+
 
 const input = document.querySelector('#input');
 
@@ -38,26 +38,30 @@ function titleCase(str) {
 } 
 
 
-// randers response data to table
+// renders response data to table
 const renderTable = (res) => {
-    
+    // init caseList with Headings
     let caseList = [`<table class="highlight centered responsive-table"><thead><tr><th>Date</th><th>Confirmed</th><th>New Cases</th><th>Deaths</th><th>New Deaths</th><th>Recovered</th><th>Active</th></tr></thead><tbody>`]
     const resultsDiv = document.querySelector('#results');
     
     
-      const newDate = res[0].Date.split('T')[0]
-      caseList.push(`<tr><td>${newDate}</td>
-      <td>${addCommas(res[0].Confirmed)}</td>
-      <td>0</td>
-      <td>${addCommas(res[0].Deaths)}</td>
-      <td>0</td>
-      <td>${addCommas(res[0].Recovered)}</td>
-      <td>${addCommas(res[0].Active)}</td>
-      </tr>`)
+    const newDate = res[0].Date.split('T')[0]
+    caseList.push(`<tr><td>${newDate}</td>
+    <td>${addCommas(res[0].Confirmed)}</td>
+    <td>0</td>
+    <td>${addCommas(res[0].Deaths)}</td>
+    <td>0</td>
+    <td>${addCommas(res[0].Recovered)}</td>
+    <td>${addCommas(res[0].Active)}</td>
+    </tr>`)
     
     for (var i = 1; i < (res.length); i ++) {
+      // iterate through results & add html to caseList
+      // format date
         const newDate = res[i].Date.split('T')[0]
+        
         if(res[i].Deaths == 0) {
+          // while there are no deaths we don't need to calculate change in deaths
           caseList.push(`<tr><td>${newDate}</td>
           <td>${addCommas(res[i].Confirmed)}</td>
           <td>${addCommas(res[i].Confirmed-res[i-1].Confirmed)}</td>
@@ -67,6 +71,7 @@ const renderTable = (res) => {
           <td>${addCommas(res[i].Active)}</td>
           </tr>`)  
         } else {
+          // if there have been previous deaths then calculate change
           caseList.push(`<tr><td>${newDate}</td>
           <td>${addCommas(res[i].Confirmed)}</td>
           <td>${addCommas(res[i].Confirmed-res[i-1].Confirmed)}</td>
