@@ -1,6 +1,6 @@
 
 const url1 ='https://api.covid19api.com/total/dayone/country/';
-
+const url2 = ''
 
 const input = document.querySelector('#input');
 
